@@ -4,7 +4,7 @@ import * as nodemailer from 'nodemailer';
 import { Request } from 'express';
 import { ChangePasswordDto } from 'src/password/dto/changePassword.dto';
 import { client } from 'src/database/database.module';
-import { resMessage } from 'src/user-auth/helper/resMessage';
+import { resMessage } from 'src/userAuth/helper/resMessage';
 
 @Injectable()
 export class PasswordService {
