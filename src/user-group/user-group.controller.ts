@@ -1,5 +1,4 @@
-import { Controller, Post, Req } from '@nestjs/common';
-import { CreateGroupDto } from './dto/createGroup.dto';
+import { Controller, Post, Put, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { UserGroupService } from './user-group.service';
 
@@ -8,7 +7,17 @@ export class UserGroupController {
   constructor(private userGroupService: UserGroupService) {}
 
   @Post('create-group')
-  async createGroup(group: CreateGroupDto, @Req() req: Request) {
-    return await this.userGroupService.createGroup(group, req);
+  async createGroup(@Req() req: Request) {
+    return await this.userGroupService.createGroup(req);
+  }
+
+  @Post('add-members')
+  async addMembers(@Req() req: Request) {
+    return await this.userGroupService.addMember(req);
+  }
+
+  @Put('make-admin')
+  async makeAdmin(@Req() req: Request) {
+    return await this.userGroupService.makeAdmin(req);
   }
 }
