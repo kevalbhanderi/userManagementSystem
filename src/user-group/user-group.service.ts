@@ -3,8 +3,6 @@ import { Request } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { client } from 'src/database/database.module';
 import { v4 as uuidv4 } from 'uuid';
-import { CreateGroupDto } from './dto/createGroup.dto';
-import { GroupMemberDto } from './dto/groupMember.dto';
 
 @Injectable()
 export class UserGroupService {
@@ -47,6 +45,14 @@ export class UserGroupService {
       `SELECT group_id FROM group_info WHERE group_name='${groupName}'`,
     );
 
+    try {
+      const existGroupId = await client.query(
+        `SELECT group_id FROM group_member WHERE member_id='${groupMemberAdmin}'`,
+      );
+    } catch {
+      return { message: 'User Already in Group' };
+    }
+
     const groupMemberDetails = await client.query(
       `INSERT INTO group_member (id, member_id, group_id, is_admin, is_super_admin) VALUES ('${uuidv4()}', '${groupMember}', '${
         groupid.rows[0]['group_id']
@@ -63,5 +69,14 @@ export class UserGroupService {
       `UPDATE group_member SET is_admin='${groupMemberAdmin}' WHERE member_id='${groupMember}'`,
     );
     return { message: 'Admin Added' };
+  }
+
+  async removeMember(@Req() req: Request) {
+    const groupMember = req.body.member;
+
+    const removeMember = await client.query(
+      `DELETE FROM group_member WHERE member_id='${groupMember}'`,
+    );
+    return { message: 'Removed Successfully' };
   }
 }

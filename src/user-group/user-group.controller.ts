@@ -1,4 +1,4 @@
-import { Controller, Post, Put, Req } from '@nestjs/common';
+import { Controller, Delete, Post, Put, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { UserGroupService } from './user-group.service';
 
@@ -19,5 +19,10 @@ export class UserGroupController {
   @Put('make-admin')
   async makeAdmin(@Req() req: Request) {
     return await this.userGroupService.makeAdmin(req);
+  }
+
+  @Delete('remove-member')
+  async removeMember(@Req() req: Request) {
+    return await this.userGroupService.removeMember(req);
   }
 }
