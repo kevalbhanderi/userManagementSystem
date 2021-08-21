@@ -5,13 +5,13 @@ import { Cron, CronExpression } from '@nestjs/schedule';
 export class ScheduleService {
   private readonly logger = new Logger(ScheduleService.name);
 
-  @Cron(CronExpression.EVERY_5_SECONDS)
+  @Cron(CronExpression.EVERY_DAY_AT_10AM)
   handleCron() {
-    this.logger.debug('Called every 5 second');
+    this.logger.debug("Let's go for Coffee");
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_DAY_AT_9AM)
   handleNewCron() {
-    console.log('Hello World');
+    console.log('Good Morning !');
   }
 }
