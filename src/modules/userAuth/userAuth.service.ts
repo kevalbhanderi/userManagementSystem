@@ -4,7 +4,7 @@ import { resMessage } from './helper/resMessage';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
-import { client } from 'src/database/database.module';
+import { client } from 'src/modules/database/database.module';
 
 @Injectable()
 export class UserAuthService {

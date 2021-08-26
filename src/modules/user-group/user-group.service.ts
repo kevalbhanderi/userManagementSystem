@@ -1,6 +1,6 @@
 import { Injectable, Req } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
-import { client } from 'src/database/database.module';
+import { client } from 'src/modules/database/database.module';
 import { v4 as uuidv4 } from 'uuid';
 import { CreateGroupDto } from './dto/createGroup.dto';
 

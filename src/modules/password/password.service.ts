@@ -1,9 +1,9 @@
 import { Body, Injectable } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import * as nodemailer from 'nodemailer';
-import { ChangePasswordDto } from 'src/password/dto/changePassword.dto';
-import { client } from 'src/database/database.module';
-import { resMessage } from 'src/userAuth/helper/resMessage';
+import { ChangePasswordDto } from '../password/dto/changePassword.dto';
+import { client } from 'src/modules/database/database.module';
+import { resMessage } from '../userAuth/helper/resMessage';
 
 @Injectable()
 export class PasswordService {
