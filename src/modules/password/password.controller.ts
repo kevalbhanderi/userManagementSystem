@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Req } from '@nestjs/common';
-import { ChangePasswordDto } from 'src/password/dto/changePassword.dto';
+import { ChangePasswordDto } from '../password/dto/changePassword.dto';
 import { Request } from 'express';
 import { PasswordService } from './password.service';
 
