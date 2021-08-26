@@ -8,11 +8,13 @@ export class UserAuthController {
 
   @Post('signup')
   async signup(@Body() user: UserDto) {
-    return await this.userAuthsService.signup(user);
+    const signupData = await this.userAuthsService.signup(user);
+    return signupData;
   }
 
   @Post('login')
   async login(@Body() user: UserDto) {
-    return await this.userAuthsService.login(user);
+    const loginData = await this.userAuthsService.login(user);
+    return loginData;
   }
 }

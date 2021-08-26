@@ -16,11 +16,8 @@ export class PasswordController {
   }
 
   @Post('sendmail')
-  async forgotPassword(
-    @Body() password: ChangePasswordDto,
-    @Req() req: Request,
-  ) {
-    return await this.passwordService.forgotPassword(password, req);
+  async forgotPassword(@Req() req: Request) {
+    return await this.passwordService.forgotPassword(req);
   }
 
   @Post('forgotpassword')

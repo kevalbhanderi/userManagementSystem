@@ -1,13 +1,13 @@
 import { Injectable, Req } from '@nestjs/common';
-import { Request } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { client } from 'src/database/database.module';
 import { v4 as uuidv4 } from 'uuid';
+import { CreateGroupDto } from './dto/createGroup.dto';
 
 @Injectable()
 export class UserGroupService {
-  async createGroup(@Req() req: Request) {
-    const groupName = req.body.groupname;
+  async createGroup(createGroup: CreateGroupDto, req) {
+    const groupName = createGroup.groupName;
 
     try {
       const groupDetails = await client.query(
@@ -36,7 +36,7 @@ export class UserGroupService {
     return { message: 'Group Created' };
   }
 
-  async addMember(@Req() req: Request) {
+  async addMember(req) {
     const groupMember = req.body.member;
     const groupName = req.body.groupname;
     const groupMemberAdmin = req.body.isadmin;
@@ -61,7 +61,7 @@ export class UserGroupService {
     return { message: 'Member Added' };
   }
 
-  async makeAdmin(@Req() req: Request) {
+  async makeAdmin(req) {
     const groupMember = req.body.member;
     const groupMemberAdmin = req.body.isadmin;
 
@@ -71,7 +71,7 @@ export class UserGroupService {
     return { message: 'Admin Added' };
   }
 
-  async removeMember(@Req() req: Request) {
+  async removeMember(req) {
     const groupMember = req.body.member;
 
     const removeMember = await client.query(

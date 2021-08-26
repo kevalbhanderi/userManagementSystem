@@ -1,4 +1,4 @@
-import { Body, Injectable } from '@nestjs/common';
+import { BadRequestException, Body, Injectable } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import { resMessage } from './helper/resMessage';
 import * as jwt from 'jsonwebtoken';
@@ -52,7 +52,9 @@ export class UserAuthService {
           const userToken = await this.generateAccessToken(email);
           return { Token: userToken };
         } else {
-          return { message: resMessage.messages.InvalidLoginData };
+          throw new BadRequestException(
+            'Your login information was incorrect. Please check and try again.',
+          );
         }
       } else {
         return { message: resMessage.messages.UserNotExists };
