@@ -1,10 +1,9 @@
-import { Body, Injectable, Req } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import * as nodemailer from 'nodemailer';
-import { Request } from 'express';
-import { ChangePasswordDto } from 'src/password/dto/changePassword.dto';
-import { client } from 'src/database/database.module';
-import { resMessage } from 'src/user-auth/helper/resMessage';
+import { ChangePasswordDto } from '../password/dto/changePassword.dto';
+import { client } from 'src/modules/database/database.module';
+import { resMessage } from '../userAuth/helper/resMessage';
 
 @Injectable()
 export class PasswordService {
@@ -13,7 +12,7 @@ export class PasswordService {
    * @param password oldPassword and NewPassword
    * @returns Password Status
    */
-  async changePassword(password: ChangePasswordDto, @Req() req: Request) {
+  async changePassword(password: ChangePasswordDto, req) {
     const oldPassword = password.oldpassword;
     const newPassword = password.newpassword;
 
@@ -34,7 +33,7 @@ export class PasswordService {
     }
   }
 
-  async forgotPassword(password: ChangePasswordDto, @Req() req: Request) {
+  async forgotPassword(req) {
     const email = req.body.email;
     if (email) {
       const transporter = nodemailer.createTransport({
@@ -68,8 +67,8 @@ export class PasswordService {
     }
   }
 
-  async setPassword(@Body() password: ChangePasswordDto, @Req() req: Request) {
-    const newPassword = req.body.newpassword;
+  async setPassword(@Body() password: ChangePasswordDto, req) {
+    const newPassword = password.newpassword;
 
     const bearerHeader = req.headers.authorization.replace('Bearer ', '');
     const jwtData = jwt.verify(bearerHeader, process.env.ACCESS_TOKEN);

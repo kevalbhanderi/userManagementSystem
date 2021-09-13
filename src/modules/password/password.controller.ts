@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Req } from '@nestjs/common';
-import { ChangePasswordDto } from 'src/password/dto/changePassword.dto';
+import { ChangePasswordDto } from '../password/dto/changePassword.dto';
 import { Request } from 'express';
 import { PasswordService } from './password.service';
 
@@ -16,11 +16,8 @@ export class PasswordController {
   }
 
   @Post('sendmail')
-  async forgotPassword(
-    @Body() password: ChangePasswordDto,
-    @Req() req: Request,
-  ) {
-    return await this.passwordService.forgotPassword(password, req);
+  async forgotPassword(@Req() req: Request) {
+    return await this.passwordService.forgotPassword(req);
   }
 
   @Post('forgotpassword')
